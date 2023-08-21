@@ -10,6 +10,7 @@ import {
 
 import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
+import { getLocales } from "expo-localization";
 import Sentiment, { IRONY, SCORE_TAG } from "../../components/Sentiment";
 import { styles } from "./styles";
 
@@ -31,6 +32,13 @@ const Home: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState("");
 
+    const handleSetMessage = (message: string) => {
+        setMessage(message);
+        if (message.length === 0) {
+            setScore(null);
+        }
+    };
+
     const handleSendMensage = async () => {
         try {
             setIsLoading(true);
@@ -46,7 +54,7 @@ const Home: React.FC = () => {
             const formData = new FormData();
             formData.append("key", apiKey);
             formData.append("txt", message);
-            formData.append("lang", "pt");
+            formData.append("lang", getLocales()[0].languageCode);
 
             const response = await axios.post<MeaningCloudResponse>(
                 url,
@@ -57,8 +65,9 @@ const Home: React.FC = () => {
             );
 
             setScore(response.data.score_tag);
+            console.log(score);
         } catch (error) {
-            alert("Algo não ocorreu bem");
+            alert("Something went wrong");
             console.log(error);
         } finally {
             setIsLoading(false);
@@ -68,12 +77,12 @@ const Home: React.FC = () => {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.title}>Mensagem</Text>
+                <Text style={styles.title}>Message</Text>
                 <View style={styles.form}>
                     <TextInput
                         style={styles.input}
-                        onChangeText={setMessage}
-                        placeholder="Digite a sua mensagem"
+                        onChangeText={handleSetMessage}
+                        placeholder="Type your message"
                         multiline
                     />
 

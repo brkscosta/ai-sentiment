@@ -1,8 +1,8 @@
 export const sentiments = {
-    "P+": { emoji: "😁", name: "Muito Positivo" },
-    P: { emoji: "🙂", name: "Positivo" },
-    NEU: { emoji: "😐", name: "Neutro" },
-    N: { emoji: "🙁", name: "Negativo" },
-    "N+": { emoji: "😖", name: "Muito Negativo" },
-    NONE: { emoji: "😶", name: "Sem polaridade" },
+    'P+': { emoji: "😁", name: "Strong positive" },
+    'P': { emoji: "🙂", name: "Positive" },
+    'NEU': { emoji: "😐", name: "Neutral" },
+    'N': { emoji: "🙁", name: "Negative" },
+    'N+': { emoji: "😖", name: "Strong negative" },
+    'NONE': { emoji: "😶", name: "Without polarity" },
 };
